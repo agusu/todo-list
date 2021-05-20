@@ -9,5 +9,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Optional<Task> findByName(String name);
     List<Task> findAllByOrderByIdAsc();
+    List<Task> findAllByFolderIdOrderById(Long folder_id);
 
 }

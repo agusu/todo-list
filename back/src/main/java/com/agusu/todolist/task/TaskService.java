@@ -18,6 +18,10 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
+    public List<Task> getTasksFromFolder(Long folderId) {
+        return taskRepository.findAllByFolderIdOrderById(folderId);
+    }
+
     public List<Task> getTasks() {
         return taskRepository.findAllByOrderByIdAsc();
     }

@@ -20,6 +20,18 @@ public class Task {
     private Long id;
     private String name;
     private Boolean isComplete;
+    private Long folder_id;
+
+    public Task(String name, Boolean isComplete, Long folder_id) {
+        this.name = name;
+        this.isComplete = isComplete;
+        this.folder_id = folder_id;
+    }
+
+    public Task(String name, Long folder_id) {
+        this.name = name;
+        this.folder_id = folder_id;
+    }
 
     public Task(Long id, String name, Boolean isComplete) {
         this.id = id;
