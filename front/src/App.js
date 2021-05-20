@@ -32,9 +32,7 @@ function App() {
     .catch(() => {console.log("Error adding task.")})
   }
 
-  useEffect(() => {
-    getTasks();
-  },[])
+  useEffect(() => {getTasks();},[])
 
   const getTasks = () => {
     axios.get('/api/task/').then(res => {setTaskList(res.data);})
@@ -49,10 +47,19 @@ function App() {
   }
 
   const editTask = (id, name) => {
-    setTaskList(taskList.map(task => {
-      return task.id === id ? { ...task, name } : { ...task};
-    }));
-    axios.put('/api/task/', {id, name}).catch((e)=> {console.log(e, "Error updating task name")})
+    axios.put('/api/task/', {id, name})
+    .then(() => {setTaskList(taskList.map(
+      task => {
+        return task.id === id ? { ...task, name } : { ...task};}
+      ));
+    })
+    .catch((e) => {console.log(e, "Error updating task name")})
+  }
+
+  const deleteTask = (id) => {
+    axios.delete('/api/task/' + id).then(() => {
+      setTaskList(taskList.filter(task => task.id !== id));
+    }).catch(() => {console.log("Error deleting task")});
   }
 
   const handleAddTask = (e) => {
@@ -63,11 +70,12 @@ function App() {
 
   const handleChange = (e) => {
     setUserInput(e.currentTarget.value)
-}
+  }
+
   return (
     <div className="App">
       <header>
-        <h1>My To-Do List.</h1>
+        <h1>My To-Do List</h1>
       </header>
       <Container maxWidth="sm">
         <form className={classes.root} noValidate onSubmit={handleAddTask}>
@@ -78,7 +86,7 @@ function App() {
           </Fab>
           </FormGroup >
           </form>
-          <ToDoList taskList={taskList} toggleComplete={toggleComplete} editTask={editTask}/>
+          <ToDoList taskList={taskList} toggleComplete={toggleComplete} editTask={editTask} deleteTask={deleteTask}/>
       </Container>
     </div>
   );
