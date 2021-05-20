@@ -1,5 +1,6 @@
 import './App.css';
-import { Container, Button, TextField, FormGroup} from '@material-ui/core';
+import { Container, Button, TextField, FormGroup, Fab} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import ToDoList from './components/ToDoList.js';
 import {useEffect, useState} from 'react';
@@ -20,11 +21,15 @@ function App() {
   
   const classes = useStyles();
   const addTask = () => {
-    setTaskList([...taskList, {
-      id: taskList.length + 1,
-      name: userInput,
-      complete: false
-    }])
+    axios.post('/api/task', {name: userInput})
+    .then(() => { 
+      setTaskList([...taskList, {
+        id: taskList.length + 1,
+        name: userInput,
+        complete: false}
+      ]);
+    })
+    .catch(() => {console.log("Error adding task.")})
   }
 
   useEffect(() => {
@@ -68,9 +73,9 @@ function App() {
         <form className={classes.root} noValidate onSubmit={handleAddTask}>
         <FormGroup row >
           <TextField id="task" label="New Task" placeholder="Enter task name" value={userInput} onChange={handleChange}/>
-          <Button type="submit" variant="contained" color="primary">
-            Add Task
-          </Button>
+          <Fab color="primary" size="medium" type="submit" aria-label="add">
+            <AddIcon />
+          </Fab>
           </FormGroup >
           </form>
           <ToDoList taskList={taskList} toggleComplete={toggleComplete} editTask={editTask}/>
