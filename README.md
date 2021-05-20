@@ -1,3 +1,5 @@
+![img](https://i.imgur.com/OenGTQG.png)
+
 ## Requirements:
  - JDK 16.0.1
  - PostgreSQL 13.3.1
