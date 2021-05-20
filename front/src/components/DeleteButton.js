@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const DeleteButton = ({id, deleteTask}) => { 
   return (
     <div>
-      <IconButton aria-label="delete" size="small" onClick={() => deleteTask(id)}>
+      <IconButton aria-label="delete" color="primary" size="small" onClick={() => deleteTask(id)}>
         <DeleteIcon fontSize="small" />
       </IconButton>
     </div>

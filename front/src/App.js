@@ -1,8 +1,10 @@
 import './App.css';
-import { Container, TextField, FormGroup, IconButton} from '@material-ui/core';
+import { Container, TextField, FormGroup, IconButton, Paper} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import theme from './themeConfig.js'
 import ToDoList from './components/ToDoList.js';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
@@ -69,25 +71,30 @@ function App() {
   }
 
   return (
+    <ThemeProvider theme={theme}>
     <div className="App">
       <header>
-        <h1>My To-Do List</h1>
+        <h1><AssignmentOutlinedIcon style={{fontSize: '20px'}}/> My To-Do List</h1>
       </header>
       <Container maxWidth="sm" spacing={2}>
         <form className={classes.root} noValidate onSubmit={handleAddTask}>
-        <FormGroup >
-          <TextField id="task" label="New Task" placeholder="Enter task name" 
-            value={userInput} 
-            onChange={handleChange}
-            InputProps={{endAdornment: 
-              <IconButton type="submit">
-                <AddIcon />
-              </IconButton>}}/>
-          </FormGroup >
-          </form>
-          <ToDoList taskList={taskList} toggleComplete={toggleComplete} editTask={editTask} deleteTask={deleteTask}/>
+          <Paper>
+            <FormGroup >
+            <TextField id="task" label="New Task" variant="filled" placeholder="Enter task name" 
+              value={userInput} onChange={handleChange}
+              InputProps={{endAdornment: 
+                <IconButton color="primary" type="submit">
+                  <AddIcon />
+                </IconButton>}}/>
+            </FormGroup >
+          </Paper>
+        </form>
+        <ToDoList taskList={taskList} toggleComplete={toggleComplete} 
+          editTask={editTask} deleteTask={deleteTask}/>
       </Container>
+      <footer>Developed by <a href="https://github.com/agusu" rel="noreferrer" target="_blank">agusu</a></footer>
     </div>
+    </ThemeProvider>
   );
 
 }
