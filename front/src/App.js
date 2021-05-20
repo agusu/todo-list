@@ -22,12 +22,8 @@ function App() {
   const classes = useStyles();
   const addTask = () => {
     axios.post('/api/task', {name: userInput})
-    .then(() => { 
-      setTaskList([...taskList, {
-        id: taskList.length + 1,
-        name: userInput,
-        complete: false}
-      ]);
+    .then((res) => { 
+      setTaskList([...taskList, res.data]);
     })
     .catch(() => {console.log("Error adding task.")})
   }
