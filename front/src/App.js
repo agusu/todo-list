@@ -3,7 +3,6 @@ import { Container, Button, TextField, FormGroup} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ToDoList from './components/ToDoList.js';
 import {useEffect, useState} from 'react';
-import API from './api.js';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,11 +26,14 @@ function App() {
       complete: false
     }])
   }
+
   useEffect(() => {
     getTasks();
   },[])
+
   const getTasks = () => {
-    API.get().then(res => {setTaskList(res.data); console.log(res.data)}).catch(() => {console.log("Error fetching tasks.")})
+    axios.get('/api/task/').then(res => {setTaskList(res.data);})
+    .catch(() => {console.log("Error fetching tasks.")})
   }
 
   const handleToggle = (id, complete) => {
@@ -43,14 +45,17 @@ function App() {
 
   const editTask = (id, name) => {
     setTaskList(taskList.map(task => {
-      return task.id === id ? { ...task, name: name } : { ...task};
+      return task.id === id ? { ...task, name } : { ...task};
     }));
+    axios.put('/api/task/', {id, name}).catch((e)=> {console.log(e, "Error updating task name")})
   }
+
   const handleAddTask = (e) => {
     e.preventDefault();
     addTask();
     setUserInput("");
   }
+
   const handleChange = (e) => {
     setUserInput(e.currentTarget.value)
 }

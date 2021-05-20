@@ -24,7 +24,7 @@ const ToDo = ({task, handleToggle, editTask, deleteTask}) => {
       <Grid container justify="space-between">
         <Grid item xs={9}>{task.name}</Grid>
         <Grid item xs={2}>
-          <TaskButtons taskId={task.id} editTask={editTask} deleteTask={deleteTask}/>
+          <TaskButtons taskId={task.id} taskName={task.name} editTask={editTask} deleteTask={deleteTask}/>
         </Grid>
       </Grid>
     </Grid>
