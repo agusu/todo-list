@@ -1,5 +1,5 @@
 import './App.css';
-import { Container, Button, TextField, FormGroup, Fab} from '@material-ui/core';
+import { Container, TextField, FormGroup, IconButton} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import ToDoList from './components/ToDoList.js';
@@ -73,13 +73,16 @@ function App() {
       <header>
         <h1>My To-Do List</h1>
       </header>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" spacing={2}>
         <form className={classes.root} noValidate onSubmit={handleAddTask}>
-        <FormGroup row >
-          <TextField id="task" label="New Task" placeholder="Enter task name" value={userInput} onChange={handleChange}/>
-          <Fab color="primary" size="medium" type="submit" aria-label="add">
-            <AddIcon />
-          </Fab>
+        <FormGroup >
+          <TextField id="task" label="New Task" placeholder="Enter task name" 
+            value={userInput} 
+            onChange={handleChange}
+            InputProps={{endAdornment: 
+              <IconButton type="submit">
+                <AddIcon />
+              </IconButton>}}/>
           </FormGroup >
           </form>
           <ToDoList taskList={taskList} toggleComplete={toggleComplete} editTask={editTask} deleteTask={deleteTask}/>
@@ -88,5 +91,6 @@ function App() {
   );
 
 }
+
 
 export default App;

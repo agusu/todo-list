@@ -36,6 +36,7 @@ const EditButton = ({id, name, editTask}) => {
             margin="dense"
             id="name"
             label="Task"
+            variant="filled"
             type="text"
             value={userInput}
             onChange={handleChange}
