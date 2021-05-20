@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme) => ({
   }
   },
 }));
-const ToDo = ({task, handleToggle, editTask, deleteTask}) => {
+const ToDo = ({task, toggleComplete, editTask, deleteTask}) => {
   const classes = useStyles();
 
   return (
   <Grid container id={task.id} key={task.id} name="task" direction="row" alignItems="baseline" className={classes.root}>
-    <Grid item xs={2} sm={1}><Checkbox checked={task.complete} onChange={() => {handleToggle(task.id, task.complete)}}/> </Grid>
+    <Grid item xs={2} sm={1}><Checkbox checked={task.complete} onChange={() => {toggleComplete(task.id)}}/> </Grid>
     <Grid item xs={8} sm={11} >
       <Grid container justify="space-between">
         <Grid item xs={9}>{task.name}</Grid>

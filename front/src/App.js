@@ -36,9 +36,9 @@ function App() {
     .catch(() => {console.log("Error fetching tasks.")})
   }
 
-  const handleToggle = (id, complete) => {
+  const toggleComplete = (id) => {
     setTaskList(taskList.map(task => {
-      return task.id === id ? { ...task, complete: !complete } : { ...task};
+      return task.id === id ? { ...task, complete: !task.complete } : { ...task};
     }));
     axios.patch('/api/task/' + id).catch(() => {console.log("Error updating task completion")})
   }
@@ -73,7 +73,7 @@ function App() {
           </Button>
           </FormGroup >
           </form>
-          <ToDoList taskList={taskList} handleToggle={handleToggle} editTask={editTask}/>
+          <ToDoList taskList={taskList} toggleComplete={toggleComplete} editTask={editTask}/>
       </Container>
     </div>
   );
