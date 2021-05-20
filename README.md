@@ -1,4 +1,4 @@
-![img](https://i.imgur.com/OenGTQG.png)
+![img](https://i.imgur.com/SpygtBl.png)
 
 ## Requirements:
  - JDK 16.0.1
