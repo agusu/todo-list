@@ -1,6 +1,8 @@
 ![img](https://i.imgur.com/SpygtBl.png)
 
-## Requirements:
+## Tech Stack:
+ - Spring Boot 2.5.0
+ - React 17.0.2
  - JDK 16.0.1
  - PostgreSQL 13.3.1
  - Maven 3.6.3
