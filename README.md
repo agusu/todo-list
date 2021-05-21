@@ -12,3 +12,8 @@ To get started, run with console
 ```sh
  run-script.sh
 ```
+
+## Pending improvements
+- Exception handling in front end (render errors)
+- Folder functionality
+- Login
