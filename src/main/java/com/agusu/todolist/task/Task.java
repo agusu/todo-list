@@ -1,6 +1,9 @@
 package com.agusu.todolist.task;
 
 
+import com.agusu.todolist.folder.Folder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,24 +23,15 @@ public class Task {
     private Long id;
     private String name;
     private Boolean isComplete;
-    private Long folder_id;
-
-    public Task(String name, Boolean isComplete, Long folder_id) {
-        this.name = name;
-        this.isComplete = isComplete;
-        this.folder_id = folder_id;
-    }
-
-    public Task(String name, Long folder_id) {
-        this.name = name;
-        this.folder_id = folder_id;
-    }
+    @ManyToOne(fetch=FetchType.LAZY, optional = false)
+    private Folder folder;
 
     public Task(Long id, String name, Boolean isComplete) {
         this.id = id;
         this.name = name;
         this.isComplete = isComplete;
     }
+
 
     public Task(String name) {
         this.name = name;
@@ -91,5 +85,13 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", isComplete=" + isComplete +
                 '}';
+    }
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
+    }
+
+    public Folder getFolder() {
+        return folder;
     }
 }

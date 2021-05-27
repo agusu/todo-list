@@ -28,6 +28,7 @@ public class Folder {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JoinColumn(name="folder_id", nullable = false)
     private List<Task> taskList = new ArrayList<>();
 
     public List<Task> getTaskList() {
@@ -40,6 +41,10 @@ public class Folder {
 
     public Folder(String name) {
         this.name = name;
+    }
+
+    public Folder() {
+        this.name = "New Folder";
     }
 
     public Long getId() {

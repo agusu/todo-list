@@ -18,10 +18,12 @@ public class FolderService {
         this.folderRepository = folderRepository;
     }
 
-
     public List<Task> getTasksFromFolderName(String folderName) {
         Folder folder = folderRepository.findFolderByName(folderName);
-
         return taskService.getTasksFromFolder(folder.getId());
+    }
+
+    public List<Task> getTasksFromFolderId(Long folderId) {
+        return taskService.getTasksFromFolder(folderId);
     }
 }

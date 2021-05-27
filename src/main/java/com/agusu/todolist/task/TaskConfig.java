@@ -14,15 +14,15 @@ public class TaskConfig {
         return args -> {
             Folder folder1 = new Folder ("Chores");
             Folder folder2 = new Folder ("Work");
-            Task task1 = new Task ("Vacuum floor", true, 1L);
-            Task task2 = new Task ("Create a To Do List", true, 2L);
+            folderRepository.saveAll(List.of(folder1,folder2));
+            Task task1 = new Task ("Vacuum floor", true);
+            Task task2 = new Task ("Create a To Do List", true);
             Task task3 = new Task ("Clean bathroom" );
             Task task4 = new Task ("Get a job offer" );
-            folder1.getTaskList().add(task1);
-            folder1.getTaskList().add(task3);
-            folder2.getTaskList().add(task2);
-            folder2.getTaskList().add(task4);
-            folderRepository.saveAll(List.of(folder1,folder2));
+            task1.setFolder(folder1);
+            task2.setFolder(folder2);
+
+
             taskRepository.saveAll(List.of(task1, task2, task3, task4));
         };
     }

@@ -1,12 +1,17 @@
 package com.agusu.todolist.task;
 
+import com.agusu.todolist.folder.Folder;
+import com.agusu.todolist.folder.FolderDao;
+import com.agusu.todolist.folder.FolderRepository;
+import com.agusu.todolist.folder.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(path="api/task")
+@RequestMapping(path="api/")
 public class TaskController {
     private final TaskService taskService;
 
@@ -15,14 +20,15 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping
-    public List<Task> getTasks(){
-        return taskService.getTasks();
+
+    @GetMapping(path="{folderId}/")
+    public List<Task> getTasks(@PathVariable("folderId") long folderId){
+        return taskService.getTasksFromFolder(folderId);
     }
 
-    @PostMapping
-    public Task addTask(@RequestBody TaskDto task){
-        return taskService.addTask(task);
+    @PostMapping(path="{folderId}/")
+    public Task addTask(@RequestBody TaskDto task, @PathVariable("folderId") long folderId){
+        return taskService.addTask(task, folderId);
     }
 
     @DeleteMapping(path="{taskId}")

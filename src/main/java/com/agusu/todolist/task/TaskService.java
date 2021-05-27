@@ -1,5 +1,8 @@
 package com.agusu.todolist.task;
 
+import com.agusu.todolist.folder.Folder;
+import com.agusu.todolist.folder.FolderRepository;
+import com.agusu.todolist.folder.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +16,12 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
+    private final FolderRepository folderRepository;
+
     @Autowired
-    public TaskService(TaskRepository taskRepository){
+    public TaskService(TaskRepository taskRepository, FolderRepository folderRepository){
         this.taskRepository = taskRepository;
+        this.folderRepository = folderRepository;
     }
 
     public List<Task> getTasksFromFolder(Long folderId) {
@@ -26,8 +32,17 @@ public class TaskService {
         return taskRepository.findAllByOrderByIdAsc();
     }
 
-    public Task addTask(TaskDto task) {
+    public Task addTask(TaskDto task, long folderId) {
+        Optional<Task> taskOptional = taskRepository.findByName(task.getName());
+        if (taskOptional.isPresent()) {throw new IllegalStateException("Task already exists.");}
+        Folder folder = folderRepository.findById(folderId)
+                .orElseThrow(() -> new IllegalStateException("Folder Id" + folderId + " does not exist"));
+        Task newTask = new Task(task.getName());
+        newTask.setFolder(folder);
+        return taskRepository.save(newTask);
+    }
 
+    public Task addTask(TaskDto task) {
         Optional<Task> taskOptional = taskRepository.findByName(task.getName());
         if (taskOptional.isPresent()) {throw new IllegalStateException("Task already exists.");}
         Task newTask = new Task(task.getName());
